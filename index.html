@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>सातारा जिल्हा परिषद Demo EVM मतदान सिस्टिम</title>
+
     <style>
         * {
             margin: 0;
@@ -22,7 +23,7 @@
             margin: 0 auto;
             background: white;
             border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             overflow: hidden;
         }
 
@@ -37,68 +38,6 @@
             font-size: 18px;
             color: #333;
             font-weight: 600;
-            margin: 0;
-        }
-
-        .cancelled-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.5);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-        }
-
-        .cancelled-box {
-            background: white;
-            padding: 40px;
-            border-radius: 8px;
-            text-align: center;
-            position: relative;
-        }
-
-        .cancelled-text {
-            display: flex;
-            justify-content: center;
-            gap: 8px;
-            margin-bottom: 20px;
-        }
-
-        .cancelled-letter {
-            background: #333;
-            color: white;
-            width: 30px;
-            height: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            border-radius: 4px;
-        }
-
-        .close-btn {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            width: 40px;
-            height: 40px;
-            background: #00a4d4;
-            color: white;
-            border: none;
-            border-radius: 50%;
-            font-size: 24px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .close-btn:hover {
-            background: #0087ab;
         }
 
         .blue-banner {
@@ -109,7 +48,6 @@
             margin: 20px;
             border-radius: 25px;
             font-size: 14px;
-            line-height: 1.5;
         }
 
         .yellow-box {
@@ -119,71 +57,22 @@
             margin: 15px 20px;
             border-radius: 4px;
             font-size: 13px;
-            color: #333;
-        }
-
-        .yellow-box strong {
-            color: #d32f2f;
-            font-weight: 600;
         }
 
         .main-content {
             padding: 20px;
         }
 
-        .title {
-            text-align: center;
-            color: #d32f2f;
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 20px;
-        }
-
-        .subtitle {
-            text-align: center;
-            color: #666;
-            font-size: 14px;
-            margin-bottom: 20px;
-        }
-
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 20px;
         }
 
-        table thead {
-            background: #f5f5f5;
-            border-bottom: 2px solid #999;
-        }
-
-        table th {
+        th, td {
+            border: 1px solid #ddd;
             padding: 12px;
             text-align: center;
-            font-weight: 600;
-            color: #333;
             font-size: 13px;
-            border-right: 1px solid #999;
-        }
-
-        table th:last-child {
-            border-right: none;
-        }
-
-        table td {
-            padding: 15px 12px;
-            text-align: center;
-            border-bottom: 1px solid #ddd;
-            border-right: 1px solid #ddd;
-            font-size: 13px;
-        }
-
-        table td:last-child {
-            border-right: none;
-        }
-
-        table tbody tr:hover {
-            background: #f9f9f9;
         }
 
         .candidate-name {
@@ -191,29 +80,17 @@
             padding-left: 15px;
         }
 
-        .candidate-img {
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            background: #ddd;
-        }
-
         .symbol-img {
-            width: 30px;
-            height: 30px;
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
         }
 
-        .arrow-btn {
-            background: none;
-            border: none;
-            color: #d32f2f;
-            font-size: 20px;
-            cursor: pointer;
-            padding: 5px;
-        }
-
-        .arrow-btn:hover {
-            transform: scale(1.2);
+        /* FIX FOR BJP.png SIZE */
+        .status-img {
+            width: 105px;
+            height: 85px;
+            object-fit: contain;
         }
 
         .vote-btn {
@@ -225,15 +102,6 @@
             color: white;
             font-size: 20px;
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s;
-        }
-
-        .vote-btn:hover {
-            background: #0087ab;
-            transform: scale(1.1);
         }
 
         .vote-btn.voted {
@@ -245,15 +113,6 @@
             font-size: 24px;
         }
 
-        .status-badge {
-            background: #003da4;
-            color: white;
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 600;
-        }
-
         .footer {
             text-align: center;
             padding: 20px;
@@ -261,227 +120,88 @@
             font-size: 12px;
             border-top: 1px solid #ddd;
         }
-
-        @media (max-width: 768px) {
-            table {
-                font-size: 12px;
-            }
-
-            table td, table th {
-                padding: 8px 5px;
-            }
-
-            .vote-btn {
-                width: 40px;
-                height: 40px;
-                font-size: 16px;
-            }
-        }
     </style>
 </head>
+
 <body>
-    <div class="container">
-        <!-- Header -->
-        <div class="header">
-            <h1>सातारा जिल्हा परिषद Demo EVM मतदान सिस्टिम</h1>
-        </div>
 
-       
+<div class="container">
 
-        <!-- Blue Banner -->
-        <div class="blue-banner">
-            ही मतदान सिस्टिम उमेदवारचे आणि विशिष्ट माहितीचे संपूर्ण करणे हे हेतू आहे
-        </div>
-
-        <!-- Yellow Boxes -->
-        <div class="yellow-box">
-            <strong>प्रेषण अधिकृत निरिक्षक</strong> : याही नाव आणि विशिष्टताचे संपूर्ण करणे विनंती करतो
-            प्रेषण मतदानी विधी पाहा
-        </div>
-
-        <div class="yellow-box">
-            मतदान दिनांक: - 15 जानेवारी 2026 योजी संस्कृती 7 ते संस्कृती 6 मध्यावर्ती
-        </div>
-
-        <!-- Main Content -->
-        <div class="main-content">
-            <div class="title">महाराष्ट्र पालिका इमी मतदान सिस्टिम</div>
-            <div class="subtitle">प्रश्न क्र. - 20</div>
-
-            <!-- Candidates Table -->
-            <table>
-                <thead>
-                    <tr>
-                        <th>क्रमांक</th>
-                        <th>उमेदवारांचे नाव</th>
-                        <th>photo</th>
-                        <th>chinh</th>
-                        <th>बटण</th>
-                    </tr>
-                </thead>
-                <tbody id="candidatesTable">
-                    <tr>
-                        <td>1</td>
-                        <td class="candidate-name"></td>
-                        <td></td>
-                        <td></td>
-                        <td><button class="vote-btn" onclick="voteCandidateByRow(this)"></button></td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td class="candidate-name"></td>
-                        <td></td>
-                        <td></td>
-                        <td><button class="vote-btn" onclick="voteCandidateByRow(this)"></button></td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td class="candidate-name"></td>
-                        <td></td>
-                        <td></td>
-                        <td><button class="vote-btn" onclick="voteCandidateByRow(this)"></button></td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td class="candidate-name">Babaraje</td>
-                        <td><img src="OIP.jpg" alt="Candidate Photo" class="symbol-img">
-</td>
-                        <td><span class="status-badge">😎</span></td>
-                        <td><button class="vote-btn" onclick="voteCandidateByRow(this)"></button></td>
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td class="candidate-name"></td>
-                        <td></td>
-                        <td></td>
-                        <td><button class="vote-btn" onclick="voteCandidateByRow(this)"></button></td>
-                    </tr>
-                    <tr>
-                        <td>6</td>
-                        <td class="candidate-name"></td>
-                        <td></td>
-                        <td></td>
-                        <td><button class="vote-btn" onclick="voteCandidateByRow(this)"></button></td>
-                    </tr>
-                    <tr>
-                        <td>7</td>
-                        <td class="candidate-name"></td>
-                        <td></td>
-                        <td></td>
-                        <td><button class="vote-btn" onclick="voteCandidateByRow(this)"></button></td>
-                    </tr>
-                    <tr>
-                        <td>8</td>
-                        <td class="candidate-name"></td>
-                        <td></td>
-                        <td></td>
-                        <td><button class="vote-btn" onclick="voteCandidateByRow(this)"></button></td>
-                    </tr>
-                    <tr>
-                        <td>9</td>
-                        <td class="candidate-name"></td>
-                        <td></td>
-                        <td></td>
-                        <td><button class="vote-btn" onclick="voteCandidateByRow(this)"></button></td>
-                    </tr>
-                    <tr>
-                        <td>10</td>
-                        <td class="candidate-name"></td>
-                        <td></td>
-                        <td></td>
-                        <td><button class="vote-btn" onclick="voteCandidateByRow(this)"></button></td>
-                    </tr>
-                    <tr>
-                        <td>11</td>
-                        <td class="candidate-name"></td>
-                        <td></td>
-                        <td></td>
-                        <td><button class="vote-btn" onclick="voteCandidateByRow(this)"></button></td>
-                    </tr>
-                    <tr>
-                        <td>12</td>
-                        <td class="candidate-name"></td>
-                        <td></td>
-                        <td></td>
-                        <td><button class="vote-btn" onclick="voteCandidateByRow(this)"></button></td>
-                    </tr>
-                    <tr>
-                        <td>13</td>
-                        <td class="candidate-name"></td>
-                        <td></td>
-                        <td></td>
-                        <td><button class="vote-btn" onclick="voteCandidateByRow(this)"></button></td>
-                    </tr>
-                    <tr>
-                        <td>14</td>
-                        <td class="candidate-name"></td>
-                        <td></td>
-                        <td></td>
-                        <td><button class="vote-btn" onclick="voteCandidateByRow(this)"></button></td>
-                    </tr>
-                    <tr>
-                        <td>15</td>
-                        <td class="candidate-name"></td>
-                        <td></td>
-                        <td></td>
-                        <td><button class="vote-btn" onclick="voteCandidateByRow(this)"></button></td>
-                    </tr>
-                    <tr>
-                        <td>16</td>
-                        <td class="candidate-name">वरील पैकी कोणीही नाही </td>
-                        <td></td>
-                        <td></td>
-                        <td><button class="vote-btn" onclick="voteCandidateByRow(this)"></button></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <!-- Footer -->
-        <div class="footer">
-            <p>महाराष्ट्र पालिका इलेक्ट्रॉनिक मतदान सिस्टिम</p>
-        </div>
+    <div class="header">
+        <h1>सातारा जिल्हा परिषद Demo EVM मतदान सिस्टिम</h1>
     </div>
 
-    <script>
-        let currentVote = null;
+    <div class="blue-banner">
+        ही मतदान सिस्टिम डेमो साठी आहे
+    </div>
 
-        // Close cancelled modal
-        function closeCancelledModal() {
-            document.getElementById('cancelledModal').style.display = 'none';
+    <div class="yellow-box">
+        मतदान दिनांक: 15 जानेवारी 2026
+    </div>
+
+    <div class="main-content">
+
+        <table>
+            <thead>
+                <tr>
+                    <th>क्रमांक</th>
+                    <th>उमेदवार नाव</th>
+                    <th>फोटो</th>
+                    <th>चिन्ह</th>
+                    <th>मत</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                <tr><td>1</td><td class="candidate-name"></td><td></td><td></td><td><button class="vote-btn" onclick="voteCandidateByRow(this)"></button></td></tr>
+                <tr><td>2</td><td class="candidate-name"></td><td></td><td></td><td><button class="vote-btn" onclick="voteCandidateByRow(this)"></button></td></tr>
+                <tr><td>3</td><td class="candidate-name"></td><td></td><td></td><td><button class="vote-btn" onclick="voteCandidateByRow(this)"></button></td></tr>
+
+                <tr>
+                    <td>4</td>
+                    <td class="candidate-name">Babaraje</td>
+                    <td><img src="OIP.jpg" class="symbol-img"></td>
+                    <td><img src="BJP.png" class="status-img"></td>
+                    <td><button class="vote-btn" onclick="voteCandidateByRow(this)"></button></td>
+                </tr>
+
+                <tr><td>5</td><td class="candidate-name"></td><td></td><td></td><td><button class="vote-btn" onclick="voteCandidateByRow(this)"></button></td></tr>
+                <tr><td>6</td><td class="candidate-name"></td><td></td><td></td><td><button class="vote-btn" onclick="voteCandidateByRow(this)"></button></td></tr>
+                <tr><td>7</td><td class="candidate-name"></td><td></td><td></td><td><button class="vote-btn" onclick="voteCandidateByRow(this)"></button></td></tr>
+                <tr><td>8</td><td class="candidate-name"></td><td></td><td></td><td><button class="vote-btn" onclick="voteCandidateByRow(this)"></button></td></tr>
+                <tr><td>9</td><td class="candidate-name"></td><td></td><td></td><td><button class="vote-btn" onclick="voteCandidateByRow(this)"></button></td></tr>
+                <tr><td>10</td><td class="candidate-name"></td><td></td><td></td><td><button class="vote-btn" onclick="voteCandidateByRow(this)"></button></td></tr>
+                <tr><td>11</td><td class="candidate-name"></td><td></td><td></td><td><button class="vote-btn" onclick="voteCandidateByRow(this)"></button></td></tr>
+                <tr><td>12</td><td class="candidate-name"></td><td></td><td></td><td><button class="vote-btn" onclick="voteCandidateByRow(this)"></button></td></tr>
+                <tr><td>13</td><td class="candidate-name"></td><td></td><td></td><td><button class="vote-btn" onclick="voteCandidateByRow(this)"></button></td></tr>
+                <tr><td>14</td><td class="candidate-name"></td><td></td><td></td><td><button class="vote-btn" onclick="voteCandidateByRow(this)"></button></td></tr>
+                <tr><td>15</td><td class="candidate-name"></td><td></td><td></td><td><button class="vote-btn" onclick="voteCandidateByRow(this)"></button></td></tr>
+                <tr><td>16</td><td class="candidate-name">वरील पैकी कोणीही नाही</td><td></td><td></td><td><button class="vote-btn" onclick="voteCandidateByRow(this)"></button></td></tr>
+
+            </tbody>
+        </table>
+
+    </div>
+
+    <div class="footer">
+        महाराष्ट्र पालिका इलेक्ट्रॉनिक मतदान सिस्टिम
+    </div>
+
+</div>
+
+<script>
+    let currentVote = null;
+
+    function voteCandidateByRow(btn) {
+        if (currentVote) {
+            currentVote.classList.remove('voted');
+            currentVote.innerHTML = '';
         }
+        btn.classList.add('voted');
+        currentVote = btn;
+    }
+</script>
 
-        // Vote for candidate
-        function voteCandidateByRow(btn) {
-            // Remove previous vote
-            if (currentVote) {
-                currentVote.classList.remove('voted');
-                currentVote.innerHTML = '';
-            }
-
-            // Set new vote
-            btn.classList.add('voted');
-            currentVote = btn;
-
-            // Get candidate name from the row
-            const row = btn.closest('tr');
-            const candidateName = row.querySelector('.candidate-name').textContent;
-
-            console.log('[v0] Voted for candidate:', candidateName);
-
-            // Optional: Show confirmation
-            alert('मतदान: ' + (candidateName || 'उमेदवार ' + row.querySelector('td').textContent));
-        }
-
-        // Allow closing modal by clicking outside
-        document.querySelector('.cancelled-modal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeCancelledModal();
-            }
-        });
-
-        // Initialize - you can add more candidates here
-        console.log('[v0] EVM Voting System Initialized');
-    </script>
 </body>
 </html>
